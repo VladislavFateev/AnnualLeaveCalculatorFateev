@@ -10,11 +10,11 @@ import java.time.LocalDate;
 
 @Data
 @RequiredArgsConstructor
-public class HolidayPayData {
+public class VacationPayData {
     private BigDecimal averagePayment;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate endDate;
-    private Integer holidayDays;
+    private Integer vacationDays;
 }

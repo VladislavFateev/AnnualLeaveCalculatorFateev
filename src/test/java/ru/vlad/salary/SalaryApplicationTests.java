@@ -4,24 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.RequestBody;
-import ru.vlad.salary.controller.HolidayPayController;
-import ru.vlad.salary.model.HolidayPayData;
+import ru.vlad.salary.model.VacationPayData;
 
 import java.math.BigDecimal;
-import java.net.URL;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +28,7 @@ class SalaryApplicationTests {
 
 	@Test
 	public void testWithDates() throws Exception {
-		HolidayPayData payData = new HolidayPayData();
+		VacationPayData payData = new VacationPayData();
 		payData.setAveragePayment(new BigDecimal(10000));
 		payData.setStartDate(LocalDate.of(2023, 10, 10));
 		payData.setEndDate(LocalDate.of(2023, 10, 20));
@@ -44,7 +36,7 @@ class SalaryApplicationTests {
 		String requestBody = objectMapper.writeValueAsString(payData);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("http://localhost:8095/api/holiday-pay/calculate")
+				.get("http://localhost:8095/api/vacation-pay/calculate")
 				.accept(MediaType.APPLICATION_JSON).content(requestBody)
 				.contentType(MediaType.APPLICATION_JSON);
 
@@ -55,14 +47,14 @@ class SalaryApplicationTests {
 
 	@Test
 	public void testWithDaysCount() throws Exception {
-		HolidayPayData payData = new HolidayPayData();
+		VacationPayData payData = new VacationPayData();
 		payData.setAveragePayment(new BigDecimal(10000));
-		payData.setHolidayDays(10);
+		payData.setVacationDays(10);
 
 		String requestBody = objectMapper.writeValueAsString(payData);
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("http://localhost:8095/api/holiday-pay/calculate")
+				.get("http://localhost:8095/api/vacation-pay/calculate")
 				.accept(MediaType.APPLICATION_JSON).content(requestBody)
 				.contentType(MediaType.APPLICATION_JSON);
 
